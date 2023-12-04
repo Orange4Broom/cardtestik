@@ -6,6 +6,13 @@ import { useLogout } from '../../hooks/useLogout';
 import { useState } from 'react';
 import { useToastify } from '../../hooks/useToastify';
 
+export interface Card {
+  card_id: string;
+  nazev: string;
+  popis: string;
+  kvalita: string;
+}
+
 export const Home = () => {
   const { data, isPending, error } = useFetchFirestore('cards');
   const { state } = useAuthContext();
@@ -24,7 +31,7 @@ export const Home = () => {
     notify('success', 'Karta byla přidána');
   };
 
-  const handleDeleteCard = (card_id) => {
+  const handleDeleteCard = () => {
     event?.preventDefault();
     notify('success', 'Karta byla smazána');
   };
@@ -39,9 +46,9 @@ export const Home = () => {
       {state.user && <button onClick={() => logout()}>Logout</button>}
       {data && (
         <table>
-          {Object.values(data).map((card) => (
+          {Object.values(data).map((card: Card) => (
             <>
-              <thead key={card.crad_id}>
+              <thead>
                 <tr>
                   <th>Název</th>
                   <th>{card.nazev}</th>
@@ -58,9 +65,7 @@ export const Home = () => {
                 </tr>
                 <tr>
                   <td>
-                    <button onClick={() => handleDeleteCard(card.card_id)}>
-                      Smazat
-                    </button>
+                    <button onClick={() => handleDeleteCard()}>Smazat</button>
                   </td>
                 </tr>
               </tbody>

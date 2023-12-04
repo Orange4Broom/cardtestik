@@ -10,6 +10,7 @@ export interface loginData {
 
 export const useLogin = () => {
   const [error, setError] = useState<string | null>(null);
+  console.log(error);
   const { notify } = useToastify();
   const login = async ({ email, password }: loginData) => {
     try {
@@ -23,5 +24,5 @@ export const useLogin = () => {
     }
   };
 
-  return { login };
+  return { login, error };
 };

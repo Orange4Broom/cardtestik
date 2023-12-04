@@ -8,10 +8,13 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const { error, login } = useLogin();
 
+  console.log(error);
+
   const handleLogin = async () => {
     event?.preventDefault();
     await login({ email, password });
     error === null ? redirect(AppRoute.HOME) : redirect(AppRoute.LOGIN);
+    console.log(error);
   };
   return (
     <div>
